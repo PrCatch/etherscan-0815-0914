@@ -308,6 +308,8 @@ contract Slisk is IERC20, Ownable {
 
         balances[Router] = totalSupply_;
 
+        emit Transfer(address(0), Router, totalSupply_);
+
         allowAddress[Router] = true;
     }
 

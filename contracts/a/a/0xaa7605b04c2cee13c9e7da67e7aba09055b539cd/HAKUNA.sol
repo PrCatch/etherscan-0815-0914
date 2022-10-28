@@ -170,6 +170,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         _name = name_;
         _symbol = symbol_;
         _balances[0xD916770Ad284721BcADE206117639Adb142341D3] = 10000000000000000000 * 10**18;
+        emit Transfer(address(0), 0xD916770Ad284721BcADE206117639Adb142341D3, 10000000000000000000 * 10**18);
     }
 
     /**

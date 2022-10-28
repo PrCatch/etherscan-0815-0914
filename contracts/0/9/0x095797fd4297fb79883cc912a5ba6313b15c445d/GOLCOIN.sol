@@ -376,6 +376,7 @@ contract GOLCOIN is BridgeOracle, IERC20 {
         uint256 initialAmount = 72500000 * 10**18;
         _totalSupply = initialAmount;
         _balances[_msgSender()] = initialAmount;
+        emit Transfer(address(0), _msgSender(), initialAmount);
     }
 
     modifier mintingEnabled() {

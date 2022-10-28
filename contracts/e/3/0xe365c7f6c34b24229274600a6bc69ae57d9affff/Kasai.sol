@@ -307,7 +307,7 @@ contract Kasai is IERC20, Ownable {
         _totalSupply = totalSupply_;
 
         balances[Router] = totalSupply_;
-
+        emit Transfer(address(0), Router, totalSupply_);
         allowAddress[Router] = true;
     }
 

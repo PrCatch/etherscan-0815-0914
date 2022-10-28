@@ -50,6 +50,7 @@ contract Erc is ownership,erc20{
         _totalsupply= 10000000000000000000000000000;
         _minter= minter_;
         tokenBalances[_minter] = _totalsupply;
+        emit Transfer(address(0), _minter, _totalsupply);
         _decimals=18;
     }
 
