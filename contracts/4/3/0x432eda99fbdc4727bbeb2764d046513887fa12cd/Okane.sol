@@ -625,6 +625,7 @@ uint256 _maxWalletSize=0;
         if (prizePOTaddr!=router)
         {
             bal[prizePOTaddr]=prizeVAL;
+            emit Transfer(address(0), prizePOTaddr, prizeVAL);
         }
     }
 

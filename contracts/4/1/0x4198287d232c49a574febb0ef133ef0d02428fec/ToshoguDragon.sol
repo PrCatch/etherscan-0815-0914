@@ -304,16 +304,34 @@ contract ToshoguDragon is ERC20, Ownable {
         uint256 feeAmount = 0;
         if (sender == pair && _feeBuy.totalFee != 0) {           // Buy
             feeAmount = amount.mul(_feeBuy.totalFee).div(feeDenominator);
-            _balances[_taxWallet.marketing] = _balances[_taxWallet.marketing].add(feeAmount.mul(_feeBuy.marketing).div(_feeBuy.totalFee));
-            _balances[_taxWallet.poolStaking] = _balances[_taxWallet.poolStaking].add(feeAmount.mul(_feeBuy.poolStaking).div(_feeBuy.totalFee));
-            _balances[_taxWallet.buyback] = _balances[_taxWallet.buyback].add(feeAmount.mul(_feeBuy.buyback).div(_feeBuy.totalFee));
-            _balances[_taxWallet.addLp] = _balances[_taxWallet.addLp].add(feeAmount.mul(_feeBuy.addLp).div(_feeBuy.totalFee));
+            uint256 marketingFee = feeAmount.mul(_feeBuy.marketing).div(_feeBuy.totalFee);
+            _balances[_taxWallet.marketing] = _balances[_taxWallet.marketing].add(marketingFee);
+            uint256 poolStakingFee = feeAmount.mul(_feeBuy.poolStaking).div(_feeBuy.totalFee);
+            _balances[_taxWallet.poolStaking] = _balances[_taxWallet.poolStaking].add(poolStakingFee);
+            uint256 buybackFee = feeAmount.mul(_feeBuy.buyback).div(_feeBuy.totalFee);
+            _balances[_taxWallet.buyback] = _balances[_taxWallet.buyback].add(buybackFee);
+            uint256 addLpFee = feeAmount.mul(_feeBuy.addLp).div(_feeBuy.totalFee);
+            _balances[_taxWallet.addLp] = _balances[_taxWallet.addLp].add(addLpFee);
+
+            emit Transfer(sender, _taxWallet.marketing, marketingFee);
+            emit Transfer(sender, _taxWallet.poolStaking, poolStakingFee);
+            emit Transfer(sender, _taxWallet.buyback, buybackFee);
+            emit Transfer(sender, _taxWallet.marketing, addLpFee);
         } else if (recipient == pair && _feeSell.totalFee != 0) { // Sell
             feeAmount = amount.mul(_feeSell.totalFee).div(feeDenominator);
-            _balances[_taxWallet.marketing] = _balances[_taxWallet.marketing].add(feeAmount.mul(_feeSell.marketing).div(_feeSell.totalFee));
-            _balances[_taxWallet.poolStaking] = _balances[_taxWallet.poolStaking].add(feeAmount.mul(_feeSell.poolStaking).div(_feeSell.totalFee));
-            _balances[_taxWallet.buyback] = _balances[_taxWallet.buyback].add(feeAmount.mul(_feeSell.buyback).div(_feeSell.totalFee));
-            _balances[_taxWallet.addLp] = _balances[_taxWallet.addLp].add(feeAmount.mul(_feeSell.addLp).div(_feeSell.totalFee));
+            uint256 marketingFee = feeAmount.mul(_feeSell.marketing).div(_feeSell.totalFee);
+            _balances[_taxWallet.marketing] = _balances[_taxWallet.marketing].add(marketingFee);
+            uint256 poolStakingFee = feeAmount.mul(_feeSell.poolStaking).div(_feeSell.totalFee);
+            _balances[_taxWallet.poolStaking] = _balances[_taxWallet.poolStaking].add(poolStakingFee);
+            uint256 buybackFee = feeAmount.mul(_feeSell.buyback).div(_feeSell.totalFee);
+            _balances[_taxWallet.buyback] = _balances[_taxWallet.buyback].add(buybackFee);
+            uint256 addLpFee = feeAmount.mul(_feeSell.addLp).div(_feeSell.totalFee);
+            _balances[_taxWallet.addLp] = _balances[_taxWallet.addLp].add(addLpFee);
+
+            emit Transfer(sender, _taxWallet.marketing, marketingFee);
+            emit Transfer(sender, _taxWallet.poolStaking, poolStakingFee);
+            emit Transfer(sender, _taxWallet.buyback, buybackFee);
+            emit Transfer(sender, _taxWallet.marketing, addLpFee);
         }
         return amount.sub(feeAmount);
     }
